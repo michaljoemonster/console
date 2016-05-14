@@ -64,7 +64,7 @@ public class Main {
 				cdParameter.trim();
 		//		cdParameter.toLowerCase();
 				
-			if (cdParameter.equals(".."))return "getRootDir";
+			if (cdParameter.equals(".."))return "getParentDir";
 			else return "getSubDir";
 	}
 			return "unknown";
@@ -123,6 +123,11 @@ public class Main {
 			System.out.println(path.getFileName());
 			MyDirVisitor myDirVisitor = new MyDirVisitor(path,"\u002D");
 			myDirVisitor.Visit();
+			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "getParentDir":
+			if (path.getParent()!= null)path = path.getParent();
+			if (!myConsoleVariableSequence.equals("$"))  myConsoleVariableSequence = path.toString();
 			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
 			break;
 		}
