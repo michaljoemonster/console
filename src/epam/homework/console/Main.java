@@ -1,5 +1,7 @@
 package epam.homework.console;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -8,6 +10,7 @@ public class Main {
 	private static String myConsoleVariableSequence = "$";
 	private static final String sharpBracket = ">";
 	private static String cdParameter;
+	private static Path path = Paths.get(System.getProperty("user.dir"));
 	public static void main(String[] args) {
 
 		try (Scanner in = new Scanner (System.in,"UTF-8"))
@@ -33,6 +36,7 @@ public class Main {
 			switch(command)
 			{
 			case "prompt":
+				if (line.length()<8) return "noPromptParameter";
 				String promptParameter = line.substring(7);
 					promptParameter.trim();
 					
@@ -51,7 +55,7 @@ public class Main {
 			case "tree":
 				return "tree";
 			case"cd":
-				if (line.length()<4) return "brakKatalogu";
+				if (line.length()<4) return "noCdParameter";
 				cdParameter = line.substring(3);
 				cdParameter.trim();
 		//		cdParameter.toLowerCase();
@@ -63,6 +67,37 @@ public class Main {
 	}
 	private static void PrepareOutput(String line, String command)
 	{
-		
+		switch(command)
+		{
+		case "unknown":
+			if (line.indexOf(" ")>= 0)System.out.print((line.substring(0,line.indexOf(" "))+" : unknown command"
+		+ System.getProperty("line.separator")));
+			else System.out.println( line.substring(0)+" : unknown command");
+			System.out.print( myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "reset":
+			myConsoleVariableSequence = "$";
+			System.out.print( myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "repeat":
+			myConsoleVariableSequence = line.substring(7);
+			System.out.print( myShellSequence + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "currentDir":
+			myConsoleVariableSequence = path.toString();
+			System.out.print( myShellSequence + myConsoleVariableSequence + sharpBracket);
+		break;
+		case "exit":
+			System.out.println("Bye");
+			System.exit(0);
+		case "noPromptParameter":
+			System.out.println("Brak parametru dla komendy prompt");
+			System.out.print( myShellSequence + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "noCdParameter":
+			System.out.println("Brak parametru dla komendy cd");
+			System.out.print( myShellSequence + myConsoleVariableSequence + sharpBracket);
+			break;
+		}
 	}
 }
