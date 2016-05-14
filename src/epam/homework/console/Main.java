@@ -1,12 +1,16 @@
 package epam.homework.console;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
 	private static String command;
-	private static final String myShellSequence ="[My Shell]";
+	private static final String myShellSequence ="[MyShell]";
 	private static String myConsoleVariableSequence = "$";
 	private static final String sharpBracket = ">";
 	private static String cdParameter;
@@ -97,6 +101,23 @@ public class Main {
 		case "noCdParameter":
 			System.out.println("Brak parametru dla komendy cd");
 			System.out.print( myShellSequence + myConsoleVariableSequence + sharpBracket);
+			break;
+		case "dir":
+			try(DirectoryStream<Path> entries = Files.newDirectoryStream(path))
+			{
+				System.out.println("Content of " + path.toString());
+				for (Path entry : entries)
+				{
+					File file = entry.toFile();
+					if (file.isDirectory()) System.out.println("DIR" + "\u0009" + file.getName());
+					else System.out.println("FILE" + "\u0009" + file.getName());
+				}
+				System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			}
 			break;
 		}
 	}
