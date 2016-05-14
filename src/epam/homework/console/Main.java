@@ -154,5 +154,6 @@ public class Main {
 				}
 				}
 		
+		if (!czyZnalezionoKatalog) System.out.println("Nieprawidlowy katalog: " + dir);
 	}
 }
