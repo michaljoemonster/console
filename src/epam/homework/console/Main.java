@@ -25,7 +25,7 @@ public class Main {
 		{
 			String line = in.nextLine();
 		command = CheckInput(line);
-		System.out.println(command); // for testing actual command
+	//	System.out.println(command); // for testing actual command
 		PrepareOutput(line, command);
 		}
 		}
@@ -134,7 +134,11 @@ public class Main {
 			GoToSubDirectory(cdParameter);
 			if (!myConsoleVariableSequence.equals("$"))  myConsoleVariableSequence = path.toString();
 			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
-			break; // just in case i will add something and forget about it
+			break; 
+		case "justEnter":
+			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break;
+			
 		}
 	}
 	private static void GoToSubDirectory(String dir)
