@@ -130,6 +130,29 @@ public class Main {
 			if (!myConsoleVariableSequence.equals("$"))  myConsoleVariableSequence = path.toString();
 			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
 			break;
+		case "getSubDir":
+			GoToSubDirectory(cdParameter);
+			if (!myConsoleVariableSequence.equals("$"))  myConsoleVariableSequence = path.toString();
+			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break; // just in case i will add something and forget about it
 		}
+	}
+	private static void GoToSubDirectory(String dir)
+	{
+	
+		boolean czyZnalezionoKatalog = false;
+		File file = path.toFile();
+		File [] files = file.listFiles();
+			for (File f: files)
+			{
+				if(f.isDirectory() && !f.isHidden())
+				{
+				if (f.getName().equals(dir)){
+				path =  f.toPath();
+				czyZnalezionoKatalog = true;
+				}
+				}
+				}
+		
 	}
 }
