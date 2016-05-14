@@ -119,6 +119,12 @@ public class Main {
 				System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
 			}
 			break;
+		case "tree":
+			System.out.println(path.getFileName());
+			MyDirVisitor myDirVisitor = new MyDirVisitor(path,"\u002D");
+			myDirVisitor.Visit();
+			System.out.print(myShellSequence  + " " + myConsoleVariableSequence + sharpBracket);
+			break;
 		}
 	}
 }
